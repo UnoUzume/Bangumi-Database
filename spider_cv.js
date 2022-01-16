@@ -6,45 +6,45 @@ const { HTMLTrim, HTMLDecode, HTMLToTree, findTree } = require('./utils/old-fetc
 
 const lstFPaths = utils.findFiles('./crt')
 
-const ids = []
+const lstIDs = []
 lstFPaths.forEach((fPath) => {
   const { jobs } = JSON.parse(fs.readFileSync(fPath))
   jobs.forEach((job) => {
     for (let i = 0; i < job.casts.length; i++) {
       const castHref = /** @type {String} */ (job.casts[i].castHref)
-      if (castHref.includes('/person/')) ids.push(castHref.replace('/person/', ''))
+      if (castHref.includes('/person/')) lstIDs.push(castHref.replace('/person/', ''))
     }
   })
 })
-const uniqueIds = Array.from(new Set(ids))
-// const uniqueIds = [8138]
+const lstIDs_uni = Array.from(new Set(lstIDs))
+// const lstIDs_uni = [8138]
 
-function fetchMono(id, index) {
+function run(id, index) {
   return new Promise(async (resolve, reject) => {
-    const filePath = `./cv/${Math.floor(id / 100)}/${id}.json`
-    if (fs.existsSync(filePath)) {
-      console.log(`- skip ${id}.json [${index} / ${uniqueIds.length}]`)
+    const fPath = `./cv/${Math.floor(id / 100)}/${id}.json`
+    if (fs.existsSync(fPath)) {
+      console.log(`- skip ${id}.json [${index} / ${lstIDs_uni.length}]`)
       return resolve(true)
     }
 
-    const data = await fetch_cv(id)
-    const dirPath = path.dirname(filePath)
-    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath)
+    const data = await fetchCV(id)
+    const dPath = path.dirname(fPath)
+    if (!fs.existsSync(dPath)) fs.mkdirSync(dPath)
 
-    console.log(`- writing ${id}.json [${index} / ${uniqueIds.length}]`)
-    fs.writeFileSync(filePath, utils.safeStringify(data, data.nameCN || data.name))
+    console.log(`- writing ${id}.json [${index} / ${lstIDs_uni.length}]`)
+    fs.writeFileSync(fPath, utils.safeStringify(data, data.nameCN || data.name))
     return resolve(true)
   })
 }
-const fetchs = uniqueIds.map((id, index) => () => fetchMono(id, index))
+const fetchs = lstIDs_uni.map((id, index) => () => run(id, index))
 utils.queue(fetchs, 6) // 40min
 
-async function fetch_cv(monoId, headers) {
+async function fetchCV(cvID, headers) {
   try {
     let HTML, matchHTML, node
 
     // 人物信息
-    const mono = {
+    const cv = {
       name: '', // 日文名
       nameCN: '', // 中文名
       cover: '', // 封面
@@ -53,24 +53,24 @@ async function fetch_cv(monoId, headers) {
       voices: [], // 最近演出角色
     }
 
-    const { data: raw } = await axios({ url: `https://bgm.tv/person/${monoId}`, headers })
+    const { data: raw } = await axios({ url: `https://bgm.tv/person/${cvID}`, headers })
     if ((HTML = HTMLTrim(raw))) {
       // 标题
       matchHTML = HTML.match(/<h1 class="nameSingle">(.+?)<\/h1>/)
       if (matchHTML) {
         node = findTree(HTMLToTree(matchHTML[1]), 'a|text&title')
-        mono.name = node?.[0].text[0] ?? ''
-        mono.nameCN = node?.[0].attrs.title ?? ''
+        cv.name = node?.[0].text[0] ?? ''
+        cv.nameCN = node?.[0].attrs.title ?? ''
       }
 
       // 封面
       matchHTML = HTML.match(/<img src="(.+?)" class="cover"\s*\/>/)
-      if (matchHTML) mono.cover = String(matchHTML[1]).split('?')[0]
+      if (matchHTML) cv.cover = String(matchHTML[1]).split('?')[0]
 
       // 各种详细
       matchHTML = HTML.match(/<ul id="infobox">(.+?)<\/ul>/)
       if (matchHTML)
-        mono.info = String(matchHTML[1])
+        cv.info = String(matchHTML[1])
           .replace(/\n/g, '')
           .replace(/ class="(.+?)"/g, '')
           .replace(/ title="(.+?)"/g, '')
@@ -79,10 +79,10 @@ async function fetch_cv(monoId, headers) {
 
       // 详情
       matchHTML = HTML.match(/<div class="detail">(.+?)<\/div>/)
-      if (matchHTML) mono.detail = matchHTML[1]
+      if (matchHTML) cv.detail = matchHTML[1]
     }
 
-    const { data: raw2 } = await axios({ url: `https://bgm.tv/person/${monoId}/works/voice`, headers })
+    const { data: raw2 } = await axios({ url: `https://bgm.tv/person/${cvID}/works/voice`, headers })
     if ((HTML = HTMLTrim(raw2))) {
       // 角色
       matchHTML = HTML.match(/<div class="section"><ul class="browserList">(.+?)<\/ul><div class="clearit">/)
@@ -118,14 +118,14 @@ async function fetch_cv(monoId, headers) {
 
             subjects.push({ subjectHref, subjectName, subjectnameCN, staff, subjectCover })
           }
-          mono.voices.push({ href, name, nameCN, cover, subjects })
+          cv.voices.push({ href, name, nameCN, cover, subjects })
         })
     }
-    return Promise.resolve(mono)
+    return Promise.resolve(cv)
   } catch (error) {
     console.log(error)
-    const msg = '\x1b[40m \x1b[31m[RETRY] ' + monoId + ' \x1b[0m'
+    const msg = '\x1b[40m \x1b[31m[RETRY] ' + cvID + ' \x1b[0m'
     console.log(msg)
-    return fetch_cv(monoId, headers)
+    return fetchCV(cvID, headers)
   }
 }

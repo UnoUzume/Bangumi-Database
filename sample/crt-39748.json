@@ -1,0 +1,34 @@
+{
+  "name": "パピカ",
+  "nameCN": "帕皮卡",
+  "cover": "//lain.bgm.tv/pic/crt/m/e8/15/39748_crt_2BnB0.jpg",
+  "info": "<li><span>简体中文名: </span>帕皮卡</li><li><span>别名: </span>Papika</li><li><span>性别: </span>女</li><li><span>引用来源: </span>wiki</li>",
+  "detail": "突然在可可娜面前的少女，个性开朗活泼，以获得耳之碎片为目标。",
+  "jobs": [
+    {
+      "href": "/subject/190448",
+      "name": "FLIP FLAP FLIP FLAP",
+      "nameCN": "",
+      "cover": "//lain.bgm.tv/pic/cover/g/10/12/190448_u0BE0.jpg",
+      "staff": "主角",
+      "casts": [],
+      "type": 3
+    },
+    {
+      "href": "/subject/174584",
+      "name": "フリップフラッパーズ",
+      "nameCN": "Flip Flappers",
+      "cover": "//lain.bgm.tv/pic/cover/g/a4/cb/174584_7tQO4.jpg",
+      "staff": "主角",
+      "casts": [
+        {
+          "cast": "M・A・O",
+          "castHref": "/person/10887",
+          "castTag": "CV",
+          "castCover": "//lain.bgm.tv/pic/crt/s/b7/93/10887_prsn_GrRZd.jpg"
+        }
+      ],
+      "type": 2
+    }
+  ]
+}

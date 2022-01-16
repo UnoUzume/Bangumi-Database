@@ -98,24 +98,37 @@ function findFiles(curDpath) {
   return filePaths
 }
 
-function query(pool, sql, values) {
+// 同步(Synchronous)和异步(Asynchronous)
+// https://www.jianshu.com/p/142f2231355e
+function conQuerySync(conn, sql, values) {
   return new Promise((resolve, reject) => {
-    pool.getConnection(function (err, connection) {
-      if (err) {
-        reject(err)
-      } else {
-        connection.query(sql, values, (err, rows) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(rows)
-          }
-          connection.release()
-        })
-      }
+    conn.query(sql, values, (err, rows) => {
+      if (err) reject(err)
+      else resolve(rows)
     })
   })
 }
+function poolQuerySync(pool, sql, values) {
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function (err, conn) {
+      if (err) reject(err)
+      else
+        conn.query(sql, values, (err, rows) => {
+          if (err) reject(err)
+          else resolve(rows)
+          conn.release()
+        })
+    })
+  })
+}
+
+function log2txt(fPath, content) {
+  let fd = fs.openSync(fPath, 'a')
+  fs.writeSync(fd, new Date().toLocaleString() + '\n')
+  fs.writeSync(fd, content)
+  fs.closeSync(fd)
+}
+
 module.exports = {
   safeObject,
   getCoverMedium,
@@ -127,5 +140,7 @@ module.exports = {
   smallImage,
   // walkSync,
   findFiles,
-  query,
+  conQuerySync,
+  poolQuerySync,
+  log2txt,
 }

@@ -1,63 +1,62 @@
 # %%
 from pathlib import Path
-import os
 import re
 import codecs
 import pymysql
 
 ptn = re.compile(
-    r'^subs_list\\animation\\(?P<year>\d{4})\\\((?P<date>\d+\.\d+\.\d+)\)(?P<name>[^\\]+)\\(?P<source>[^\\]+)\\(?P<sub_name>.+)\\(?P<file_name>[^\\]+)$')
+    r'subs_list\\animation\\(?P<year>\d{4})\\\((?P<date>\d+\.\d+\.\d+)\)(?P<name>[^\\]+)\\(?P<source>[^\\]+)\\(?P<sub_name>.+)\\(?P<file_name>[^\\]+)$')
 ptn_epSort = re.compile('(^|\D)(\d\d)\D')
 
-db = pymysql.connect(host="localhost", user="dutbit",
-                     password="12345678", database="anime")
-cursor = db.cursor()
+con = pymysql.connect(host="localhost", user="dutbit",
+                      password="12345678", database="anime")
+cursor = con.cursor(pymysql.cursors.DictCursor)
 
-for curDir, dirs, files in os.walk("../sub_share/subs_list/animation"):
-    print(curDir)
-    for file in files:
-        if file.endswith(".ass"):
-            try:
-                fullPath = Path(curDir, file)
-                print("[Path]"+str(fullPath))
-                matches = ptn.match(str(fullPath).replace("'", "''"))
-                print(matches.groupdict())
-                epSearch = ptn_epSort.search(
-                    matches['file_name'].replace("11F", "").replace("11eyes", ""))
-                if epSearch is not None:
-                    epSort = epSearch.group(2)
-                else:
-                    epSort = 0
-                print(epSort)
-
-                sql = f"""
+sqlID = """
 SELECT bangumi_id, `name`, name_cn
 FROM `bangumi__type2` WHERE
-MATCH (`name`, `name_cn`) AGAINST ('{matches['name']}')
-AND `begin` = '{matches['date']}';"""
-                cursor.execute(sql)
-                results_id = cursor.fetchall()
+MATCH (`name`, `name_cn`) AGAINST (%s)
+AND `begin` = %s"""
+sqlEp = "SELECT ep_id FROM bangumi_ep WHERE B_bangumi_id=%s and sort=%s"
+sqlASS = """
+INSERT IGNORE INTO `ass_file` (`year`, `date`, `name`, `source`, `sub_name`, `file_name`, `ep_sort`, `B_ep_id`, `R_bangumi_id`)
+VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+lstParams = []
 
-                if(len(results_id)):
-                    bgmID = results_id[0][0]
-                    sql = f"SELECT * FROM bangumi_ep WHERE B_bangumi_id={results_id[0][0]} and sort={epSort}"
-                    cursor.execute(sql)
-                    results_epid = cursor.fetchall()
-                    epID = results_epid[0][0] if(len(results_epid)) else 0
-                else:
-                    bgmID = 0
-                    epID = 0
+pth = Path("../sub_share/subs_list/animation")
+for fPath in pth.rglob('*.ass'):
+    try:
+        epSort = 0
+        epID = 0
+        bgmID = 0
 
-                sql = f"INSERT INTO ass_file VALUES (0,'{matches['year']}','{matches['date']}','{matches['name']}','{matches['source']}','{matches['sub_name']}','{matches['file_name']}',{epSort},{epID},{bgmID})"
+        matches = ptn.search(str(fPath).replace("'", "''"))
+        # print(matches.groupdict())
+        epSearch = ptn_epSort.search(
+            matches['file_name'].replace("11F", "").replace("11eyes", ""))
+        epSort = int(epSearch.group(2)) if epSearch else 0
 
-                cursor.execute(sql.replace("\\", "\\\\"))
-                db.commit()
-            except Exception as e:
-                db.rollback()
-                print(e)
-                with codecs.open("errlog.txt", 'a', encoding='utf-8') as f:
-                    f.write(str(fullPath)+"\n")
-                    f.write(str(e)+"\n")
+        cursor.execute(sqlID, (matches['name'], matches['date']))
+        res_id = cursor.fetchone()
+        if(res_id):
+            bgmID = res_id['bangumi_id']
+            cursor.execute(sqlEp, (res_id['bangumi_id'], epSort))
+            res_epid = cursor.fetchone()
+            epID = int(res_epid['ep_id']) if(res_epid) else 0
+        lstParams.append((matches['year'], matches['date'], matches['name'],
+                          matches['source'], matches['sub_name'], matches['file_name'], epSort, epID, bgmID))
+    except Exception as e:
+        con.rollback()
+        print(e)
+        with codecs.open("log/errlog_py.txt", 'a', encoding='utf-8') as f:
+            f.write(f"{str(fPath)}\n{str(e)}\n")
+    if len(lstParams) > 100:
+        print("[Path] "+str(fPath))
+        cursor.executemany(sqlASS, lstParams)
+        con.commit()
+        lstParams = []
 
-db.close()
-# %%
+if len(lstParams) > 0:
+    cursor.executemany(sqlASS, lstParams)
+    con.commit()
+con.close()

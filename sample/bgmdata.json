@@ -1,0 +1,667 @@
+{
+  "siteMeta": {
+    "bangumi": {
+      "title": "番组计划",
+      "urlTemplate": "https://bangumi.tv/subject/{{id}}",
+      "type": "info"
+    },
+    "acfun": {
+      "title": "AcFun",
+      "urlTemplate": "https://www.acfun.cn/bangumi/aa{{id}}",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "bilibili": {
+      "title": "哔哩哔哩",
+      "urlTemplate": "https://www.bilibili.com/bangumi/media/md{{id}}/",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "bilibili_hk_mo_tw": {
+      "title": "哔哩哔哩（港澳台）",
+      "urlTemplate": "https://www.bilibili.com/bangumi/media/md{{id}}/",
+      "regions": ["HK", "MO", "TW"],
+      "type": "onair"
+    },
+    "sohu": {
+      "title": "搜狐视频",
+      "urlTemplate": "https://tv.sohu.com/{{id}}",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "youku": {
+      "title": "优酷",
+      "urlTemplate": "https://list.youku.com/show/id_z{{id}}.html",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "qq": {
+      "title": "腾讯视频",
+      "urlTemplate": "https://v.qq.com/detail/{{id}}.html",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "iqiyi": {
+      "title": "爱奇艺",
+      "urlTemplate": "https://www.iqiyi.com/{{id}}.html",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "letv": {
+      "title": "乐视",
+      "urlTemplate": "https://www.le.com/comic/{{id}}.html",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "pptv": {
+      "title": "PPTV",
+      "urlTemplate": "http://v.pptv.com/page/{{id}}.html",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "mgtv": {
+      "title": "芒果tv",
+      "urlTemplate": "https://www.mgtv.com/h/{{id}}.html",
+      "regions": ["CN"],
+      "type": "onair"
+    },
+    "nicovideo": {
+      "title": "Niconico",
+      "urlTemplate": "https://ch.nicovideo.jp/{{id}}",
+      "regions": ["JP"],
+      "type": "onair"
+    },
+    "netflix": {
+      "title": "Netflix",
+      "urlTemplate": "https://www.netflix.com/title/{{id}}",
+      "type": "onair"
+    },
+    "gamer": {
+      "title": "動畫瘋",
+      "urlTemplate": "https://acg.gamer.com.tw/acgDetail.php?s={{id}}",
+      "regions": ["TW"],
+      "type": "onair"
+    },
+    "muse_hk": {
+      "title": "木棉花 HK",
+      "urlTemplate": "https://www.youtube.com/playlist?list={{id}}",
+      "regions": ["HK", "MO"],
+      "type": "onair"
+    },
+    "ani_one_asia": {
+      "title": "Ani-One Asia",
+      "urlTemplate": "https://www.youtube.com/playlist?list={{id}}",
+      "regions": [
+        "HK",
+        "TW",
+        "MO",
+        "SG",
+        "MY",
+        "PH",
+        "TH",
+        "ID",
+        "VN",
+        "KH",
+        "BD",
+        "BN",
+        "BT",
+        "FJ",
+        "FM",
+        "IN",
+        "KH",
+        "LA",
+        "LK",
+        "MH",
+        "MM",
+        "MN",
+        "MV",
+        "NP",
+        "NR",
+        "PG",
+        "PK",
+        "PW",
+        "SB",
+        "TL",
+        "TO",
+        "TV",
+        "VU",
+        "WS"
+      ],
+      "type": "onair"
+    },
+    "viu": {
+      "title": "Viu",
+      "urlTemplate": "https://www.viu.com/ott/hk/zh-hk/vod/{{id}}/",
+      "regions": ["HK", "SG", "MY", "IN", "PH", "TH", "MM", "BH", "EG", "JO", "KW", "OM", "QA", "SA", "AE", "ZA"],
+      "type": "onair"
+    },
+    "dmhy": {
+      "title": "动漫花园",
+      "urlTemplate": "https://share.dmhy.org/topics/list?keyword={{id}}",
+      "type": "resource"
+    }
+  },
+  "items": [
+    {
+      "title": "古見さんは、コミュ症です。",
+      "titleTranslate": { "zh-Hans": ["古见同学有交流障碍症"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://komisan-official.com/",
+      "begin": "2021-10-06T15:00:00.000Z",
+      "broadcast": "R/2021-10-06T15:00:00.000Z/P7D",
+      "end": "2021-12-22T15:30:00.000Z",
+      "comment": "",
+      "sites": [{ "site": "bangumi", "id": "335225" }]
+    },
+    {
+      "title": "見える子ちゃん",
+      "titleTranslate": {
+        "zh-Hans": ["看得见的女孩"],
+        "zh-Hant": ["陰陽眼見子"]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://mierukochan.jp/",
+      "begin": "2021-10-03T13:00:00.000Z",
+      "broadcast": "R/2021-10-03T13:00:00.000Z/P7D",
+      "end": "2021-12-19T13:30:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "330973" },
+        {
+          "site": "nicovideo",
+          "id": "mierukochan",
+          "begin": "",
+          "broadcast": ""
+        },
+        {
+          "site": "muse_hk",
+          "id": "PLuxqoToY7UcguBStO4V7i0fdZWV6HdrK8",
+          "begin": "2021-09-26T16:00:00.000Z",
+          "broadcast": "R/2021-09-26T16:00:00.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "月とライカと吸血姫",
+      "titleTranslate": {
+        "zh-Hans": ["月与莱卡与吸血公主"],
+        "zh-Hant": ["月與萊卡與吸血公主"]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://tsuki-laika-nosferatu.com/",
+      "begin": "2021-10-03T16:50:00.000Z",
+      "broadcast": "R/2021-10-03T16:50:00.000Z/P7D",
+      "end": "2021-12-19T18:04:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "330918" },
+        {
+          "site": "ani_one_asia",
+          "id": "PLxSscENEp7Jh3O6xMZONZpvbnybf8-EcQ",
+          "begin": "",
+          "broadcast": ""
+        }
+      ]
+    },
+    {
+      "title": "吸血鬼すぐ死ぬ",
+      "titleTranslate": {
+        "zh-Hans": ["吸血鬼马上死"],
+        "zh-Hant": ["吸血鬼馬上死"]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://sugushinu-anime.jp/",
+      "begin": "2021-10-04T14:00:00.000Z",
+      "broadcast": "R/2021-10-04T14:00:00.000Z/P7D",
+      "end": "2021-12-20T14:30:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "305579" },
+        {
+          "site": "muse_hk",
+          "id": "PLuxqoToY7Ucidnc7fLDplg42rCXt_ckSQ",
+          "begin": "2021-10-04T15:00:00.000Z",
+          "broadcast": "R/2021-10-04T15:00:00.000Z/P7D"
+        },
+        { "site": "nicovideo", "id": "sugushinu", "begin": "", "broadcast": "" }
+      ]
+    },
+    {
+      "title": "結城友奈は勇者である 大満開の章",
+      "titleTranslate": { "zh-Hans": ["结城友奈是勇者 大满开之章"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://yuyuyu.tv/daimankai/",
+      "begin": "2021-10-01T16:55:00.000Z",
+      "broadcast": "R/2021-10-01T16:55:00.000Z/P7D",
+      "end": "2021-12-17T17:25:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "311759" },
+        {
+          "site": "nicovideo",
+          "id": "daimankai",
+          "begin": "",
+          "broadcast": ""
+        },
+        {
+          "site": "bilibili",
+          "id": "28235178",
+          "begin": "2021-10-01T18:25:01.000Z",
+          "broadcast": "R/2021-10-01T18:25:01.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "終末のハーレム",
+      "titleTranslate": {
+        "en": ["world's end harem"],
+        "zh-Hans": ["终末的后宫"]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://end-harem-anime.com/",
+      "begin": "2021-10-08T12:30:00.000Z",
+      "broadcast": "R/2021-10-08T12:30:00.000Z/P7D",
+      "end": "",
+      "comment": "",
+      "sites": [{ "site": "bangumi", "id": "306559" }]
+    },
+    {
+      "title": "最果てのパラディン",
+      "titleTranslate": {
+        "zh-Hans": ["世界尽头的圣骑士"],
+        "zh-Hant": ["世界盡頭的聖騎士"]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://farawaypaladin.com/",
+      "begin": "2021-10-09T13:00:00.000Z",
+      "broadcast": "R/2021-10-09T13:00:00.000Z/P7D",
+      "end": "",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "333442" },
+        {
+          "site": "nicovideo",
+          "id": "farawaypaladin",
+          "begin": "",
+          "broadcast": ""
+        },
+        {
+          "site": "ani_one_asia",
+          "id": "PLxSscENEp7Jh_QWr3eCIlSbMAhE2eo-5r",
+          "begin": "2021-10-06T16:00:00.000Z",
+          "broadcast": "R/2021-10-06T16:00:00.000Z/P7D"
+        },
+        {
+          "site": "bilibili",
+          "id": "28235026",
+          "begin": "2021-10-09T13:00:01.000Z",
+          "broadcast": "R/2021-10-09T13:00:01.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "プラチナエンド",
+      "titleTranslate": { "en": ["platinum end"], "zh-Hans": ["铂金终局"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://anime-platinumend.com/",
+      "begin": "2021-10-07T16:28:00.000Z",
+      "broadcast": "R/2021-10-07T16:28:00.000Z/P7D",
+      "end": "",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "322955" },
+        {
+          "site": "nicovideo",
+          "id": "anime-platinumend",
+          "begin": "",
+          "broadcast": ""
+        }
+      ]
+    },
+    {
+      "title": "プラオレ！～PRIDE OF ORANGE～",
+      "titleTranslate": { "zh-Hant": ["橘色榮耀！"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://puraore.com/",
+      "begin": "2021-10-06T13:30:00.000Z",
+      "broadcast": "R/2021-10-06T13:30:00.000Z/P7D",
+      "end": "2021-12-22T14:00:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "322193" },
+        { "site": "nicovideo", "id": "puraore", "begin": "", "broadcast": "" },
+        {
+          "site": "ani_one_asia",
+          "id": "PLxSscENEp7JjNjGOUu_OBOQEV6ngrgK1j",
+          "begin": "2021-10-04T16:00:00.000Z",
+          "broadcast": "R/2021-10-04T16:00:00.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "真の仲間じゃないと勇者のパーティーを追い出されたので、辺境でスローライフすることにしました",
+      "titleTranslate": {
+        "zh-Hans": [
+          "因为不是命中注定的同伴而被赶出了勇者的队伍、从此以后过上了悠闲的隐居生活",
+          "我被逐出队伍后过上慢生活"
+        ]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://shinnonakama.com/",
+      "begin": "2021-10-06T13:30:00.000Z",
+      "broadcast": "R/2021-10-06T13:30:00.000Z/P7D",
+      "end": "2021-12-29T14:00:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "319739" },
+        {
+          "site": "bilibili",
+          "id": "28235153",
+          "begin": "2021-10-06T14:30:01.000Z",
+          "broadcast": "R/2021-10-06T14:30:01.000Z/P7D"
+        },
+        {
+          "site": "bilibili_hk_mo_tw",
+          "id": "28235268",
+          "begin": "",
+          "broadcast": ""
+        }
+      ]
+    },
+    {
+      "title": "MUTEKING THE Dancing HERO",
+      "titleTranslate": { "zh-Hans": ["无敌侠：舞动的英雄"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://muteking.jp/",
+      "begin": "2021-10-02T16:26:00.000Z",
+      "broadcast": "R/2021-10-02T16:26:00.000Z/P7D",
+      "end": "2021-12-18T16:56:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "283636" },
+        {
+          "site": "nicovideo",
+          "id": "muteking_TDH",
+          "begin": "",
+          "broadcast": ""
+        },
+        {
+          "site": "bilibili",
+          "id": "28235143",
+          "begin": "2021-10-02T17:26:01.000Z",
+          "broadcast": "R/2021-10-02T17:26:01.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "境界戦機",
+      "titleTranslate": { "zh-Hans": ["境界战机"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://www.kyoukai-senki.net/",
+      "begin": "2021-10-04T16:30:00.000Z",
+      "broadcast": "R/2021-10-04T16:30:00.000Z/P7D",
+      "end": "2021-12-27T17:00:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "330894" },
+        {
+          "site": "nicovideo",
+          "id": "kyoukai-senki",
+          "begin": "",
+          "broadcast": ""
+        }
+      ]
+    },
+    {
+      "title": "ヴィジュアルプリズン",
+      "titleTranslate": { "zh-Hans": ["视觉监狱"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://visualprison.com/",
+      "begin": "2021-10-08T15:00:00.000Z",
+      "broadcast": "R/2021-10-08T15:00:00.000Z/P7D",
+      "end": "2021-12-24T15:30:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "331592" },
+        {
+          "site": "nicovideo",
+          "id": "visualprison",
+          "begin": "",
+          "broadcast": ""
+        }
+      ]
+    },
+    {
+      "title": "でーじミーツガール",
+      "titleTranslate": { "zh-Hans": ["当雏菊邂逅少女", "男孩遇见女孩"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://dejimeetsgirl.okinawa/",
+      "begin": "2021-10-01T16:52:00.000Z",
+      "broadcast": "R/2021-10-01T16:52:00.000Z/P7D",
+      "end": "2021-12-17T16:55:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "342672" },
+        {
+          "site": "bilibili",
+          "id": "28235175",
+          "begin": "2021-10-29T17:05:01.000Z",
+          "broadcast": "R/2021-10-29T17:05:01.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "takt op.Destiny",
+      "titleTranslate": {
+        "zh-Hans": ["宿命回响：命运节拍", "宿命回响"],
+        "zh-Hant": ["宿命迴響：命運節拍"]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://anime.takt-op.jp/",
+      "begin": "2021-10-05T15:00:00.000Z",
+      "broadcast": "R/2021-10-05T15:00:00.000Z/P7D",
+      "end": "2021-12-21T15:30:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "331535" },
+        { "site": "nicovideo", "id": "takt-op", "begin": "", "broadcast": "" },
+        {
+          "site": "ani_one_asia",
+          "id": "PLxSscENEp7Jgp5-czzbc2NrWBg5g2qz7n",
+          "begin": "2021-10-04T16:00:00.000Z",
+          "broadcast": "R/2021-10-04T16:00:00.000Z/P7D"
+        },
+        {
+          "site": "viu",
+          "id": "396997",
+          "begin": "2021-10-05T16:00:00.000Z",
+          "broadcast": "R/2021-10-05T16:00:00.000Z/P7D"
+        },
+        {
+          "site": "bilibili",
+          "id": "28235155",
+          "begin": "2021-11-03T11:00:01.000Z",
+          "broadcast": "R/2021-11-03T11:00:01.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "SELECTION PROJECT",
+      "titleTranslate": {},
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "http://pjselection.com/",
+      "begin": "2021-10-01T13:00:00.000Z",
+      "broadcast": "R/2021-10-01T13:00:00.000Z/P7D",
+      "end": "2021-12-24T13:30:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "321190" },
+        {
+          "site": "nicovideo",
+          "id": "pjselection",
+          "begin": "",
+          "broadcast": ""
+        },
+        {
+          "site": "muse_hk",
+          "id": "PLuxqoToY7UchBBA373LpxqyHoLFedO9yf",
+          "begin": "2021-09-26T16:00:00.000Z",
+          "broadcast": "R/2021-09-26T16:00:00.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "ブルーピリオド",
+      "titleTranslate": { "zh-Hans": ["蓝色时期"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://blue-period.jp/",
+      "begin": "2021-10-01T16:25:00.000Z",
+      "broadcast": "R/2021-10-01T16:25:00.000Z/P7D",
+      "end": "2021-12-17T16:52:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "325612" },
+        { "site": "bilibili", "id": "28235156", "begin": "", "broadcast": "" }
+      ]
+    },
+    {
+      "title": "サクガン",
+      "titleTranslate": { "zh-Hans": ["迷宫标记者"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "http://sakugan-anime.com/",
+      "begin": "2021-10-07T14:30:00.000Z",
+      "broadcast": "R/2021-10-07T14:30:00.000Z/P7D",
+      "end": "2021-12-23T15:00:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "257991" },
+        {
+          "site": "nicovideo",
+          "id": "sakugan-anime",
+          "begin": "",
+          "broadcast": ""
+        },
+        {
+          "site": "bilibili",
+          "id": "28235174",
+          "begin": "2021-10-07T14:30:01.000Z",
+          "broadcast": "R/2021-10-07T14:30:01.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "シキザクラ",
+      "titleTranslate": { "zh-Hans": ["四季樱"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://shikizakura-anime.com/",
+      "begin": "2021-10-09T16:55:00.000Z",
+      "broadcast": "R/2021-10-09T16:55:00.000Z/P7D",
+      "end": "2021-12-25T17:25:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "262547" },
+        {
+          "site": "nicovideo",
+          "id": "shikizakura-anime",
+          "begin": "",
+          "broadcast": ""
+        }
+      ]
+    },
+    {
+      "title": "世界最高の暗殺者、異世界貴族に転生する",
+      "titleTranslate": {
+        "zh-Hans": ["世界顶尖的暗杀者转生为异世界贵族"],
+        "zh-Hant": ["世界頂尖的暗殺者轉生為異世界貴族"]
+      },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://ansatsu-kizoku.jp/",
+      "begin": "2021-10-06T14:00:00.000Z",
+      "broadcast": "R/2021-10-06T14:00:00.000Z/P7D",
+      "end": "2021-12-22T14:30:00.000Z",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "328313" },
+        {
+          "site": "nicovideo",
+          "id": "ansatsu-kizoku",
+          "begin": "",
+          "broadcast": ""
+        },
+        {
+          "site": "muse_hk",
+          "id": "PLuxqoToY7UcgAgalhgX5UlSOdg_EJtVea",
+          "begin": "2021-10-11T16:00:00.000Z",
+          "broadcast": "R/2021-10-11T16:00:00.000Z/P7D"
+        },
+        {
+          "site": "viu",
+          "id": "397343",
+          "begin": "2021-10-05T16:00:00.000Z",
+          "broadcast": "R/2021-10-05T16:00:00.000Z/P7D"
+        },
+        {
+          "site": "bilibili",
+          "id": "28235173",
+          "begin": "2021-10-06T15:00:01.000Z",
+          "broadcast": "R/2021-10-06T15:00:01.000Z/P7D"
+        }
+      ]
+    },
+    {
+      "title": "しょうたいむ！～歌のお姉さんだってしたい",
+      "titleTranslate": { "zh-Hans": ["Show Time! ~想要做唱歌的大姐姐"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://showtime.af-original.com/",
+      "begin": "2021-10-03T16:00:00.000Z",
+      "broadcast": "R/2021-10-03T16:00:00.000Z/P7D",
+      "end": "",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "345771" },
+        {
+          "site": "nicovideo",
+          "id": "showtime_af",
+          "begin": "",
+          "broadcast": ""
+        }
+      ]
+    },
+    {
+      "title": "魔王イブロギアに身を捧げよ",
+      "titleTranslate": { "zh-Hans": ["将身体献给魔王伊布罗贾"] },
+      "type": "tv",
+      "lang": "ja",
+      "officialSite": "https://maoibu.af-original.com/",
+      "begin": "2021-10-01T16:00:00.000Z",
+      "broadcast": "R/2021-10-01T16:00:00.000Z/P7D",
+      "end": "",
+      "comment": "",
+      "sites": [
+        { "site": "bangumi", "id": "328356" },
+        { "site": "nicovideo", "id": "maoibu_af", "begin": "", "broadcast": "" }
+      ]
+    }
+  ]
+}

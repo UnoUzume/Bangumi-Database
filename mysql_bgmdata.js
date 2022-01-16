@@ -1,9 +1,8 @@
 const fs = require('fs')
-const path = require('path')
 const mysql = require('mysql')
-const { walkSync, query } = require('./utils/utils')
+const { findFiles, conQuerySync, log2txt } = require('./utils/utils')
 
-const pool = mysql.createPool({
+const con = mysql.createConnection({
   host: 'localhost',
   user: 'dutbit',
   password: '12345678',
@@ -11,35 +10,33 @@ const pool = mysql.createPool({
 })
 
 async function run() {
-  await walkSync('../bangumi-data/data/items', async function (filePath, stat) {
-    console.log(filePath)
-    let data = fs.readFileSync(filePath)
+  const lstFPaths = findFiles('../bangumi-data/data/items')
+  con.connect()
+  for (let i = 0; i < lstFPaths.length; i++) {
+    const fPath = lstFPaths[i]
+    console.log(`- read ${fPath}.json [${i} / ${lstFPaths.length}]`)
+    let data = fs.readFileSync(fPath)
     try {
       let doc = JSON.parse(data)
-      for (let index = 0; index < doc.length; index++) {
-        const bgm = doc[index]
+      for (let j = 0; j < doc.length; j++) {
+        const bgm = doc[j]
         let sql = 'UPDATE bangumi__type2 SET officialSite=?,`begin`=? WHERE bangumi_id=?'
         let bgm_id = 0
-        for (let j = 0; j < bgm.sites.length; j++) {
-          if (bgm.sites[j].site == 'bangumi') {
-            bgm_id = bgm.sites[j].id
-          }
-        }
+        for (let j = 0; j < bgm.sites.length; j++) if (bgm.sites[j].site == 'bangumi') bgm_id = bgm.sites[j].id
         let begin = bgm.begin.split('T')[0]
-        let sqlParams = [bgm.officialSite, begin, bgm_id]
-        await query(pool, sql, sqlParams)
+
+        let rows = await conQuerySync(con, sql, [bgm.officialSite, begin, bgm_id]).catch((err) => {
+          log2txt('log/errlog_sql.txt', `    ${fPath}\n    ${err}\n`)
+        })
+        console.log(rows)
+        console.log(`update data: ${j} / ${doc.length}`)
       }
-      console.log('ok')
     } catch (err) {
       console.log(err)
-      let fd = fs.openSync('log\\errlog.txt', 'a')
-      let date = new Date()
-      fs.writeSync(fd, date.toLocaleString() + '\n')
-      fs.writeSync(fd, '    ' + filePath + '\n')
-      fs.writeSync(fd, '    ' + err + '\n')
-      fs.closeSync(fd)
+      log2txt('log/errlog.txt', `    ${fPath}\n    ${err}\n`)
     }
-  })
+  }
   console.log('done')
+  con.end()
 }
 run()

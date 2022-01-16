@@ -1,51 +1,50 @@
-const { MongoClient } = require('mongodb')
 let fs = require('fs')
-let url = 'mongodb://localhost:27017/'
+const { MongoClient } = require('mongodb')
+const { findFiles, log2txt } = require('./utils/utils')
 
-//30min
-async function walkSync(currentDirPath, callback) {
-  let fs = require('fs'),
-    path = require('path')
-  let list = fs.readdirSync(currentDirPath)
-  for (let index = 0; index < list.length; index++) {
-    const name = list[index]
-    let filePath = path.join(currentDirPath, name)
-    let stat = fs.statSync(filePath)
-    if (stat.isFile()) {
-      await callback(filePath, stat)
-    } else if (stat.isDirectory()) {
-      await walkSync(filePath, callback)
+const url = 'mongodb://localhost:27017/'
+const client = new MongoClient(url)
+
+const lstFPaths = findFiles('../Bangumi-Subject/data')
+let lstDocs = []
+let doc = null
+
+async function run(type) {
+  await client.connect()
+  const database = client.db('Bangumi')
+  const collection = database.collection(`subject__type${type}`)
+
+  for (let iFPath = 0; iFPath < lstFPaths.length; iFPath++) {
+    const fPath = lstFPaths[iFPath]
+    let data = fs.readFileSync(fPath).toString()
+    try {
+      try {
+        doc = JSON.parse(data)
+      } catch (error) {
+        doc = JSON.parse(
+          data.replace(/":"(.*?)"(,"|\})/g, (m, $1, $2) => {
+            return `":"${$1.replace(/(?<!\\)"/g, '\\"')}"${$2}`
+          })
+        )
+      }
+      if (doc.type == type) lstDocs.push(doc)
+    } catch (err) {
+      console.log(err)
+      log2txt('log/errlog_mon.txt', `    ${fPath}\n    ${err}\n`)
+    }
+
+    if (iFPath % 500 == 0 || iFPath == lstFPaths.length - 1) {
+      console.log(`- read ${fPath} [${iFPath} / ${lstFPaths.length}]`)
+      if (lstDocs.length) {
+        let res = await collection.insertMany(lstDocs).catch((err) => {
+          log2txt('log/errlog_sql.txt', `    ${fPath}\n    ${err}\n`)
+        })
+        console.log(`insertedCount: ${res?.insertedCount}`)
+        lstDocs = []
+      }
     }
   }
-}
-
-const client = new MongoClient(url)
-async function run() {
-  await client.connect()
-  await walkSync('data', async function (filePath, stat) {
-    const database = client.db('Bangumi')
-    console.log(filePath)
-    const data = fs.readFileSync(filePath)
-    try {
-      const doc = JSON.parse(data)
-      if (!doc.type) {
-        var fd = fs.openSync('errlog.txt', 'a')
-        fs.writeSync(fd, filePath + '\n')
-        fs.writeSync(fd, 'doc.type undefined\n')
-        fs.closeSync(fd)
-      }
-      const collection = database.collection('subject__type' + doc.type)
-      await collection.insertOne(doc)
-    } catch (err) {
-      var fd = fs.openSync('errlog.txt', 'a')
-      fs.writeSync(fd, filePath + '\n')
-      fs.writeSync(fd, err + '\n')
-      fs.closeSync(fd)
-      console.log(err)
-    }
-    console.log('ok')
-  })
-  await client.close()
   console.log('done')
+  await client.close()
 }
-run()
+run(2) // 5min

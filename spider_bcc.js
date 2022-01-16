@@ -19,32 +19,32 @@ const lstIDs = [
   ...JSON.parse(fs.readFileSync('../Bangumi-Subject/ids/anime-bangumi-data.json')),
 ]
 
-const lstIDs_unique = Array.from(new Set(lstIDs))
-// const lstIDs_unique = [252782]
+const lstIDs_uni = Array.from(new Set(lstIDs))
+// const lstIDs_uni = [252782]
 
 // const raw = fs.readFileSync('bcc_lost.txt').toString()
-// const lstIDs_unique = raw.match(/\d+\.json/g).map((value) => {
+// const lstIDs_uni = raw.match(/\d+\.json/g).map((value) => {
 //   return value.replace('.json', '')
 // })
 
-function fetchSubject(id, index) {
+function run(id, index) {
   return new Promise(async (resolve, reject) => {
-    const filePath = `bcc/${Math.floor(id / 100)}/${id}.json`
-    if (!rewrite && fs.existsSync(filePath)) {
-      console.log(`- skip ${id}.json [${index} / ${lstIDs_unique.length}]`)
+    const fPath = `bcc/${Math.floor(id / 100)}/${id}.json`
+    if (!rewrite && fs.existsSync(fPath)) {
+      console.log(`- skip ${id}.json [${index} / ${lstIDs_uni.length}]`)
       return resolve(true)
     }
 
     const data = await fetchBCC(id)
-    const dirPath = path.dirname(filePath)
-    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath)
+    const dPath = path.dirname(fPath)
+    if (!fs.existsSync(dPath)) fs.mkdirSync(dPath)
 
-    console.log(`- writing ${id}.json [${index} / ${lstIDs_unique.length}]`)
-    fs.writeFileSync(filePath, utils.safeStringify(data))
+    console.log(`- writing ${id}.json [${index} / ${lstIDs_uni.length}]`)
+    fs.writeFileSync(fPath, utils.safeStringify(data))
     return resolve(true)
   })
 }
-const fetchs = lstIDs_unique.map((id, index) => () => fetchSubject(id, index))
+const fetchs = lstIDs_uni.map((id, index) => () => run(id, index))
 utils.queue(fetchs, 6) // 35min
 
 async function fetchBCC(subjectID, headers) {
@@ -53,12 +53,11 @@ async function fetchBCC(subjectID, headers) {
 
     const subject = {
       subjectID: subjectID,
+      crts: [],
     }
 
     const { data: raw } = await axios({ url: `https://bgm.tv/subject/${subjectID}/characters`, headers })
     if ((HTML = HTMLTrim(raw))) {
-      // 角色
-      subject.crts = []
       matchHTML = HTML.match(
         /<div id="columnInSubjectA" class="column">(.+?)<\/div><div id="columnInSubjectB" class="column">/
       )
